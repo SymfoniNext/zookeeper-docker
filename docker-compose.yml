@@ -1,0 +1,29 @@
+version: '2'
+services:
+  zk1:
+    hostname: zk1
+    image: symfoni/zookeeper:3.4.8
+    restart: always
+    environment:
+      - affinity:container!=zookeeper_zk*
+      - SERVER_ID=1
+      - SERVERS=zk1,zk2,zk3
+  zk2:
+    hostname: zk2
+    image: symfoni/zookeeper:3.4.8
+    restart: always
+    environment:
+      - affinity:container!=zookeeper_zk*
+      - SERVER_ID=2
+      - SERVERS=zk1,zk2,zk3
+  zk3:
+    hostname: zk3
+    image: symfoni/zookeeper:3.4.8
+    restart: always
+    environment:
+      - affinity:container!=zookeeper_zk*
+      - SERVER_ID=3
+      - SERVERS=zk1,zk2,zk3
+networks:
+  default:
+    driver: overlay
